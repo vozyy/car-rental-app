@@ -1,15 +1,14 @@
 import mongoose from 'mongoose';
 
-const start = async (app, port) => {
+mongoose.set('strictQuery', false);
+
+const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DB_CONNECTION);
-
-    app.listen(port, () => {
-      console.log(`My app is running on port: ${port}`);
-    });
+    console.log('MongoDB connected');
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export default start;
+export default connectDB;
