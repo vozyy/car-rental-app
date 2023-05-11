@@ -1,25 +1,18 @@
-import dotenv from 'dotenv';
 import express from 'express';
+import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import { auth } from 'express-openid-connect';
+import config from './src/rest/middleware/config.js';
+import start from './src/db/config/config.js';
 
 dotenv.config();
+
 const PORT = process.env.PORT;
 
 mongoose.set('strictQuery', false);
 
 const app = express();
 app.use(express.json());
+app.use(auth(config));
 
-const start = async() => {
-    try {
-        await mongoose.connect(process.env.DB_CONNECTION)
-        
-        app.listen(PORT, () => {
-            console.log(`My app is running on port: ${PORT}`);
-        })
-    } catch (error) {
-        console.log(error.message)
-    }
-}
-
-start();
+start(app, PORT);
