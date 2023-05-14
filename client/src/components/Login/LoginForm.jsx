@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginFormInputs from './LoginFormInputs';
 import inputs from './LoginInputs';
 import userSchema from '../../services/formValidationService';
@@ -9,20 +9,31 @@ function LoginForm() {
     password: '',
   });
 
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await userSchema.validate(values, { abortEarly: false });
-      setErrorMessage(null);
-    } catch (err) {
-      setErrorMessage(err.inner[0].message);
-    }
-  };
 
   const handleChange = async (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    setShowErrorMessage(true);
+  };
+
+  useEffect(() => {
+    const validateInput = async () => {
+      try {
+        await userSchema.validate(values, { abortEarly: false });
+        setErrorMessage(null);
+      } catch (err) {
+        setErrorMessage(err.inner[0].message);
+      }
+    };
+    if (showErrorMessage) {
+      validateInput();
+    }
+    return () => {};
+  }, [values, showErrorMessage]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   };
 
   return (
