@@ -1,7 +1,11 @@
 import './App.css';
 
 function App() {
-  return <p>car rental app</p>;
+  return (
+    <>
+      <p>App component</p>
+    </>
+  );
 }
 
 export default App;
