@@ -1,54 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import LoginFormInputs from './LoginFormInputs';
-import inputs from './LoginInputs';
-import userSchema from '../../services/formValidationService';
+import LoginInputs from './LoginInputs';
+import userSchema from '../../utils/formValidationSchema';
+import validateLoginInput from '../../utils/formValidation';
 
 function LoginForm() {
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
-
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   const handleChange = async (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
     setShowErrorMessage(true);
   };
 
   useEffect(() => {
     const validateInput = async () => {
-      try {
-        await userSchema.validate(values, { abortEarly: false });
+      if (!showErrorMessage) {
+        return;
+      }
+      const validationError = await validateLoginInput(userSchema, values);
+      if (validationError) {
+        setErrorMessage(validationError.inner[0].message);
+      } else {
         setErrorMessage(null);
-      } catch (err) {
-        setErrorMessage(err.inner[0].message);
       }
     };
-    if (showErrorMessage) {
-      validateInput();
-    }
-    return () => {};
-  }, [values, showErrorMessage]);
+    validateInput();
+  }, [showErrorMessage, values]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   };
 
+  const rednerLoginFormInputs = () =>
+    LoginInputs.map((input, i) => (
+      <LoginFormInputs
+        key={i}
+        id={input.name}
+        value={values[input.name]}
+        {...input}
+        onChange={handleChange}
+      />
+    ));
+
   return (
     <div className='login-form'>
       <form onSubmit={handleSubmit}>
-        {inputs.map((input, i) => (
-          <LoginFormInputs
-            key={i}
-            id={input.name}
-            value={values[input.name]}
-            {...input}
-            onChange={handleChange}
-            errorMessage={input.error}
-          />
-        ))}
+        {rednerLoginFormInputs()}
         {errorMessage && <p>{errorMessage}</p>}
         <button>Log In</button>
       </form>
