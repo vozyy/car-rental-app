@@ -1,4 +1,4 @@
-const validateLoginInput = async (schema, inputValues) => {
+const validateFormInput = async (schema, inputValues) => {
   try {
     await schema.validate(inputValues, { abortEarly: false });
     return null;
@@ -7,4 +7,4 @@ const validateLoginInput = async (schema, inputValues) => {
   }
 };
 
-export default validateLoginInput;
+export default validateFormInput;

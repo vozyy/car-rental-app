@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import LoginFormInputs from './LoginFormInputs';
 import loginInputs from './LoginInputs';
 import { loginSchema } from '../../utils/formValidationSchema';
-import validateLoginInput from '../../utils/formValidation';
+import validateFormInput from '../../utils/formValidation';
 import { debounce } from 'lodash';
 
 function LoginForm() {
@@ -24,10 +24,7 @@ function LoginForm() {
       if (!showErrorMessage) {
         return;
       }
-      const validationError = await validateLoginInput(
-        loginSchema,
-        loginValues
-      );
+      const validationError = await validateFormInput(loginSchema, loginValues);
       setErrorMessage(
         validationError ? validationError.inner[0].message : null
       );

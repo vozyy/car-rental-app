@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import registerInputs from './RegisterInputs';
 import RegisterFormInputs from './RegisterFormInputs';
-import validateLoginInput from '../../utils/formValidation';
+import validateFormInput from '../../utils/formValidation';
 import { registerSchema } from '../../utils/formValidationSchema';
 import { debounce } from 'lodash';
 
@@ -26,7 +26,7 @@ function RegisterForm() {
         return;
       }
 
-      const validationError = await validateLoginInput(
+      const validationError = await validateFormInput(
         registerSchema,
         registerValues
       );
