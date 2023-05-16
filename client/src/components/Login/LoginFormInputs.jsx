@@ -5,7 +5,7 @@ function LoginFormInputs(props) {
 
   return (
     <>
-      <div className='form-input'>
+      <div className='login-form-input'>
         <label htmlFor={id}>{label}: </label>
         <input {...inputProps} id={id} onChange={onChange} />
         <p className='login-input-error'>{errorMessage}</p>
