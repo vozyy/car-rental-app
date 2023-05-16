@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import LoginFormInputs from './LoginFormInputs';
-import LoginInputs from './LoginInputs';
-import userSchema from '../../utils/formValidationSchema';
+import loginInputs from './LoginInputs';
+import { loginSchema } from '../../utils/formValidationSchema';
 import validateLoginInput from '../../utils/formValidation';
+import { debounce } from 'lodash';
 
 function LoginForm() {
-  const [values, setValues] = useState({
+  const [loginValues, setLoginValues] = useState({
     email: '',
     password: '',
   });
@@ -14,35 +15,42 @@ function LoginForm() {
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+    setLoginValues({ ...loginValues, [name]: value });
     setShowErrorMessage(true);
   };
 
   useEffect(() => {
-    const validateInput = async () => {
+    const validateInput = debounce(async () => {
       if (!showErrorMessage) {
         return;
       }
-      const validationError = await validateLoginInput(userSchema, values);
-      if (validationError) {
-        setErrorMessage(validationError.inner[0].message);
-      } else {
-        setErrorMessage(null);
-      }
-    };
+      const validationError = await validateLoginInput(
+        loginSchema,
+        loginValues
+      );
+      setErrorMessage(
+        validationError ? validationError.inner[0].message : null
+      );
+    }, 500);
     validateInput();
-  }, [showErrorMessage, values]);
+  }, [showErrorMessage, loginValues]);
 
+  // TODO: implement login logic with my own API
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (errorMessage) {
+      alert('cannot proceed, login not corrent');
+    } else {
+      console.log(loginValues);
+    }
   };
 
   const rednerLoginFormInputs = () =>
-    LoginInputs.map((input, i) => (
+    loginInputs.map((input, i) => (
       <LoginFormInputs
         key={i}
         id={input.name}
-        value={values[input.name]}
+        value={loginValues[input.name]}
         {...input}
         onChange={handleChange}
       />
