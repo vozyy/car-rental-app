@@ -1,12 +1,41 @@
 import User from '../db/models/user';
+import bcrypt from 'bcrypt';
+import {
+  validateRegistration,
+  registrationSchema,
+} from '../services/validationService';
 
-// here I import the User model and create an instance of it called user
-// I assign the users all the properties required
-// NEXT --> baseController
+const createUser = async (userCredentials) => {
+  try {
+    const validationError = await validateRegistration(
+      registrationSchema,
+      userCredentials
+    );
 
-const user = new User({
-  name: 'david',
-  email: 'gm@gm.com',
-});
+    if (validationError) {
+      return { message: validationError.error };
+    }
 
-export default user;
+    const dbUser = await User.findOne({
+      email: userCredentials.email,
+    });
+
+    if (dbUser) {
+      return { message: 'Email already in use' };
+    } else {
+      userCredentials.password = await bcrypt.hash(
+        userCredentials.password,
+        10
+      );
+
+      const newUser = new User(userCredentials);
+      await newUser.save();
+
+      return { message: 'Registration successful' };
+    }
+  } catch (error) {
+    return { message: error.message };
+  }
+};
+
+export default createUser;
