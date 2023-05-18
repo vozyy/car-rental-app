@@ -27,6 +27,7 @@ const createUser = async (userCredentials) => {
     userCredentials.password = await bcrypt.hash(userCredentials.password, 10);
     const newUser = new User(userCredentials);
     await newUser.save();
+
     return { message: 'Registration successful' };
   } catch (error) {
     return { error: error.message };
