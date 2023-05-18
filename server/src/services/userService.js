@@ -22,17 +22,12 @@ const createUser = async (userCredentials) => {
 
     if (dbUser) {
       return { error: 'Email already in use' };
-    } else {
-      userCredentials.password = await bcrypt.hash(
-        userCredentials.password,
-        10
-      );
-
-      const newUser = new User(userCredentials);
-      await newUser.save();
-
-      return { message: 'Registration successful' };
     }
+
+    userCredentials.password = await bcrypt.hash(userCredentials.password, 10);
+    const newUser = new User(userCredentials);
+    await newUser.save();
+    return { message: 'Registration successful' };
   } catch (error) {
     return { error: error.message };
   }
