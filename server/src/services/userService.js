@@ -13,7 +13,7 @@ const createUser = async (userCredentials) => {
     );
 
     if (validationError) {
-      return { message: validationError.error };
+      return { error: validationError.error };
     }
 
     const dbUser = await User.findOne({
@@ -21,7 +21,7 @@ const createUser = async (userCredentials) => {
     });
 
     if (dbUser) {
-      return { message: 'Email already in use' };
+      return { error: 'Email already in use' };
     } else {
       userCredentials.password = await bcrypt.hash(
         userCredentials.password,
@@ -34,7 +34,7 @@ const createUser = async (userCredentials) => {
       return { message: 'Registration successful' };
     }
   } catch (error) {
-    return { message: error.message };
+    return { error: error.message };
   }
 };
 
