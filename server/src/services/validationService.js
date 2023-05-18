@@ -1,4 +1,6 @@
 import * as yup from 'yup';
+import User from '../db/models/user';
+import bcrypt from 'bcrypt';
 
 export const registrationSchema = yup.object().shape({
   email: yup.string().email('invalid email').required('Valid email required'),
@@ -23,4 +25,13 @@ export const validateRegistration = async (schema, registrationCredentials) => {
   } catch (error) {
     return { error: error.message };
   }
+};
+
+export const validateLogin = async (userEmail, userPassword) => {
+  const user = await User.findOne({ email: userEmail });
+  if (!user || !(await bcrypt.compare(userPassword, user.password))) {
+    throw new Error('Invalid email or password');
+  }
+
+  return user;
 };
