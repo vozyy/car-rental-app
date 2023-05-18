@@ -1,4 +1,6 @@
 import userService from '../../services';
+import { validateLogin } from '../../services/validationService';
+import createToken from '../../services/createToken';
 
 const register = async (req, res) => {
   try {
@@ -9,6 +11,18 @@ const register = async (req, res) => {
   }
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await validateLogin(email, password);
+    const token = createToken(user);
+    res.json({ message: 'Login successful', token });
+  } catch (error) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+};
+
 export default {
   register,
+  login,
 };
