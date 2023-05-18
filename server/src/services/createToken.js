@@ -11,4 +11,4 @@ const createToken = (tokenDetails) => {
   return jwt.sign(tokenDetails, process.env.TOKEN_SECRET, { expiresIn: '30m' });
 };
 
-export default { createToken };
+export default createToken;
