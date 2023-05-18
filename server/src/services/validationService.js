@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 export const registrationSchema = yup.object().shape({
-  email: yup.string().email('invalid email').required('valid email required'),
+  email: yup.string().email('invalid email').required('Valid email required'),
   password: yup
     .string()
     .min(8)
@@ -9,7 +9,7 @@ export const registrationSchema = yup.object().shape({
       message:
         'password must be at least 8 characters long and contain at least 1 number and 1 special character',
     })
-    .required('password is required'),
+    .required('Password is required'),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password')], 'Passwords must match')
