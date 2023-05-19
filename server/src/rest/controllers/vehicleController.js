@@ -2,10 +2,14 @@ import vehicleService from '../../services';
 
 const getAll = async (req, res) => {
   try {
-    const allVehicles = await vehicleService.getAllVehicles();
-    res.json(allVehicles);
+    const result = await vehicleService.getAllVehicles();
+
+    if (!result.length) {
+      return res.status(404).json({ error: 'No vehicles found' });
+    }
+    res.json(result);
   } catch (error) {
-    res.status(404).json('No vehicle found');
+    res.status(500).json({ error: error.message });
   }
 };
 
