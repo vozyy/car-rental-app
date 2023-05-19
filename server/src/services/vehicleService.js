@@ -1,11 +1,11 @@
 import Vehicle from '../db/models/vehicle';
 
-const getAllVehicles = async () => {
+const getAllVehicles = () => {
   try {
-    const vehicles = await Vehicle.find();
+    const vehicles = Vehicle.find();
     return vehicles;
   } catch (error) {
-    return { error: error.message };
+    throw new Error('Failed to retrieve vehicles');
   }
 };
 
