@@ -9,7 +9,7 @@ const getAllVehicles = async () => {
   }
 };
 
-const updateVehicleWithRenter = async (renterId, vehicleId) => {
+const addRenterToVehicle = async (renterId, vehicleId) => {
   try {
     const updateVehicle = await Vehicle.findOneAndUpdate(
       { _id: vehicleId },
@@ -22,4 +22,4 @@ const updateVehicleWithRenter = async (renterId, vehicleId) => {
   }
 };
 
-export { getAllVehicles, updateVehicleWithRenter };
+export { getAllVehicles, addRenterToVehicle };
