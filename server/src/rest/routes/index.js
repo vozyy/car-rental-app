@@ -6,6 +6,7 @@ import vehicleRouter from './vehicleRouter';
 const router = express.Router();
 
 router.use(baseRouter);
-router.use('/api', userRouter, vehicleRouter);
+router.use('/api', userRouter);
+router.use('/api', vehicleRouter);
 
 export default router;
