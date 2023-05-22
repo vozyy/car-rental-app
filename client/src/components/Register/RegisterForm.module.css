@@ -1,0 +1,23 @@
+.open-register-form-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 2rem;
+  margin-top: 1rem;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 375px) {
+}
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
+
+/* 
+colors:
+#A30000 red
+#070707 black
+#F7F4F3 white smoke */
