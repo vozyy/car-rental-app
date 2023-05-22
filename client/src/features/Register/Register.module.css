@@ -1,0 +1,27 @@
+.register-page-img {
+  background-image: url(../../assets/registerCar.jpg);
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  height: 20rem;
+  margin: 1rem;
+  border-radius: 20px;
+}
+
+.register-page-slogan {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-left: 1rem;
+  text-transform: uppercase;
+  line-height: 3rem;
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 375px) {
+}
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
