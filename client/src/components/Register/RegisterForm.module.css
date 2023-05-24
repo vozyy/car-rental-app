@@ -32,18 +32,19 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0.8rem 5rem;
+  padding: 0.7rem 4.5rem;
   border-radius: 10px;
-  border: none;
+  margin-top: 4rem;
   background-color: #a30000;
   color: #f7f4f3;
   font-weight: 900;
+  border: 3px solid #a30000;
 }
 
 .register-modal-btn:hover {
-  transition: 0.3s ease-out;
   background-color: #f7f4f3;
   color: #a30000;
+  transition: 0.3s ease-out;
 }
 
 .register-error-message {
@@ -71,9 +72,3 @@
 
 @media screen and (min-width: 1280px) {
 }
-
-/* 
-colors:
-#A30000 red
-#070707 black
-#F7F4F3 white smoke */
