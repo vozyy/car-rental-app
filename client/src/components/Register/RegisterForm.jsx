@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import registerInputs from './RegisterInputs';
+import registerInputs from './registerInputs';
 import RegisterFormInputs from './RegisterFormInputs';
 import validateFormInput from '../../utils/formValidation';
 import { registerSchema } from '../../utils/formValidationSchema';
 import { debounce } from 'lodash';
+import styles from './RegisterForm.module.css';
 
 function RegisterForm() {
   const [registerValues, setRegisterValues] = useState({
@@ -13,6 +14,8 @@ function RegisterForm() {
   });
   const [errorMessage, setErrorMessage] = useState(null);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  // ADDED
+  const [showForm, setShowForm] = useState(false);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -47,6 +50,11 @@ function RegisterForm() {
     }
   };
 
+  // ADDED
+  const handleButtonClick = () => {
+    setShowForm(!showForm);
+  };
+
   const renderRegisterFormInputs = () =>
     registerInputs.map((input, i) => (
       <RegisterFormInputs
@@ -59,13 +67,27 @@ function RegisterForm() {
     ));
 
   return (
-    <div className='register-form'>
-      <form onSubmit={handleSubmit}>
-        {renderRegisterFormInputs()}
-        {errorMessage && <p>{errorMessage}</p>}
-        <button>Register</button>
-      </form>
-    </div>
+    <>
+      {!showForm ? (
+        <button
+          className={styles['register-modal-btn']}
+          onClick={handleButtonClick}
+        >
+          Register
+        </button>
+      ) : (
+        <div className={styles['modal']}>
+          <div className={styles['overlay']} onClick={handleButtonClick}></div>
+          <form className={styles['register-form']} onSubmit={handleSubmit}>
+            {renderRegisterFormInputs()}
+            {errorMessage && (
+              <p className={styles['register-error-message']}>{errorMessage}</p>
+            )}
+            <button className={styles['register-submit-btn']}>Submit</button>
+          </form>
+        </div>
+      )}
+    </>
   );
 }
 
