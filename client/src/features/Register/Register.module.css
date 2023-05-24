@@ -8,13 +8,25 @@
   border-radius: 20px;
 }
 
-.register-page-slogan {
+.register-page-header {
   font-size: 3rem;
   font-weight: 900;
-  margin-left: 1rem;
+  margin: 2rem 1rem;
   text-transform: uppercase;
   line-height: 3rem;
-  margin-bottom: 2rem;
+  background-image: url(../../assets/registerCar.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.register-page-subheader {
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0 1rem 2rem 1rem;
+  text-align: center;
 }
 
 @media screen and (min-width: 375px) {
