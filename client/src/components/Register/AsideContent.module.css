@@ -1,0 +1,14 @@
+.aside-content {
+  background-color: #f7f4f3;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.aside-content + .aside-content {
+  margin-top: 2rem;
+}
+
+.aside-content span {
+  font-size: 2rem;
+}
