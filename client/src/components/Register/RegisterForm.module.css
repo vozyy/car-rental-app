@@ -1,10 +1,66 @@
-.open-register-form-btn {
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+}
+
+.overlay {
+  background-color: rgba(60, 60, 60, 0.7);
+}
+
+.register-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15rem;
+  transform: translate(-50%, -50%);
+  background-color: #f7f4f3;
+  z-index: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6px;
+}
+
+.register-modal-btn {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0.5rem 2rem;
-  margin-top: 1rem;
-  margin: 0 auto;
+  padding: 0.8rem 5rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #a30000;
+  color: #f7f4f3;
+  font-weight: 900;
+}
+
+.register-modal-btn:hover {
+  transition: 0.3s ease-out;
+  background-color: #f7f4f3;
+  color: #a30000;
+}
+
+.register-error-message {
+  color: #a30000;
+  font-size: 0.8rem;
+}
+
+.register-submit-btn {
+  padding: 0.5rem 3rem;
+  background-color: #070707;
+  color: #f7f4f3;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.register-submit-btn:hover {
+  background-color: #878787;
 }
 
 @media screen and (min-width: 375px) {
