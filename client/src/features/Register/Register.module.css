@@ -22,11 +22,34 @@
   -webkit-text-fill-color: transparent;
 }
 
-.register-page-subheader {
-  font-weight: 400;
-  font-size: 1rem;
-  margin: 0 1rem 2rem 1rem;
+.register-main-content-container {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  margin: 1rem auto;
+}
+
+.content-box {
+  background-color: #f7f4f3;
+  border-radius: 20px;
+  padding: 2rem;
   text-align: center;
+}
+
+.content-box + .content-box {
+  margin-top: 2rem;
+}
+
+.content-box span {
+  font-size: 2rem;
+}
+
+.register-form-component {
+  margin-bottom: 7rem;
+}
+
+.empty {
+  margin-top: 13rem;
 }
 
 @media screen and (min-width: 375px) {
