@@ -2,7 +2,8 @@ import React from 'react';
 import styles from './RegisterFormInput.module.css';
 
 function RegisterFormInputs(props) {
-  const { label, id, errorMessage, onChange, ...inputProps } = props;
+  const { label, id, errorMessage, onChange, placeholder, ...inputProps } =
+    props;
 
   return (
     <>
@@ -14,9 +15,9 @@ function RegisterFormInputs(props) {
           className={styles['register-form-input']}
           {...inputProps}
           id={id}
+          placeholder={placeholder}
           onChange={onChange}
         />
-        <p className={styles['register-input-error']}>{errorMessage}</p>
       </div>
     </>
   );
