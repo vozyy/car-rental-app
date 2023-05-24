@@ -7,39 +7,39 @@ import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 function Register() {
   return (
     <>
-      <div className={styles['register-page-img']}></div>
+      <header className={styles['register-page-img']}></header>
       <h1 className={styles['register-page-header']}>
         Discover. <br /> Roam. <br /> Return. <br />
       </h1>
-      <div className={styles['register-main-content-container']}>
+      <section className={styles['register-main-content-container']}>
         <div className={styles['content-box']}>
           <span>
             <FontAwesomeIcon icon={icon({ name: 'car' })} />
           </span>
-          <p>
+          <aside>
             Enjoy convenience at your doorstep with our car rentals app—have
             your chosen vehicle delivered right to your home!
-          </p>
+          </aside>
         </div>
         <div className={styles['content-box']}>
           <span>
             <FontAwesomeIcon icon={icon({ name: 'house' })} />
           </span>
-          <p>
+          <aside>
             Convenience continues even after your rental period ends. We pick up
             the car hassle-free at your address!
-          </p>
+          </aside>
         </div>
         <div className={styles['content-box']}>
           <span>
             <FontAwesomeIcon icon={icon({ name: 'car-burst' })} />
           </span>
-          <p>
+          <aside>
             Drive with confidence knowing that every car in our fleet comes with
             comprehensive insurance coverage, keeping you fully protected.
-          </p>
+          </aside>
         </div>
-      </div>
+      </section>
       <div>
         <RegisterForm />
       </div>
