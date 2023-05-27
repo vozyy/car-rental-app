@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import registerInputs from './registerInputs';
 import RegisterFormInputs from './RegisterFormInputs';
 import validateFormInput from '../../utils/formValidation';
@@ -7,6 +8,8 @@ import { debounce } from 'lodash';
 import styles from './RegisterForm.module.css';
 
 function RegisterForm() {
+  const navigate = useNavigate();
+
   const [registerValues, setRegisterValues] = useState({
     email: '',
     password: '',
@@ -14,13 +17,17 @@ function RegisterForm() {
   });
   const [errorMessage, setErrorMessage] = useState(null);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  // ADDED
+
   const [showForm, setShowForm] = useState(false);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
     setRegisterValues({ ...registerValues, [name]: value });
     setShowErrorMessage(true);
+  };
+
+  const handleButtonClick = () => {
+    setShowForm(!showForm);
   };
 
   useEffect(() => {
@@ -44,15 +51,26 @@ function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (errorMessage) {
-      alert('cannot proceed, register values not valid');
+      alert('cannot proceed, credentials are not valid');
     } else {
-      console.log(registerValues);
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/register`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(registerValues),
+          }
+        );
+        const responseBody = await response.json();
+        console.log(responseBody);
+        navigate('/login');
+      } catch (error) {
+        console.log(error);
+      }
     }
-  };
-
-  // ADDED
-  const handleButtonClick = () => {
-    setShowForm(!showForm);
   };
 
   const renderRegisterFormInputs = () =>
