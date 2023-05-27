@@ -38,10 +38,37 @@
 }
 
 @media screen and (min-width: 375px) {
+  .register-page-header {
+    text-align: center;
+    font-size: 4rem;
+    line-height: 3.5rem;
+    transition: font-size 0.5s;
+  }
 }
 
 @media screen and (min-width: 768px) {
+  .register-main-content-container {
+    width: 95%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .register-form-component {
+    margin-bottom: 7rem;
+  }
 }
 
 @media screen and (min-width: 1280px) {
+  .register-page-img {
+    max-width: 1300px;
+    margin: 1rem auto;
+  }
+
+  .register-main-content-container {
+    max-width: 1000px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
 }
