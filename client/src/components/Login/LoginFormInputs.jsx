@@ -1,14 +1,15 @@
 import React from 'react';
+import styles from './LoginFormInputs.module.css';
 
 function LoginFormInputs(props) {
   const { label, id, errorMessage, onChange, ...inputProps } = props;
 
   return (
     <>
-      <div className='login-form-input'>
-        <label htmlFor={id}>{label}: </label>
+      <div className={styles['login-input-container']}>
+        <label htmlFor={id}>{label} </label>
         <input {...inputProps} id={id} onChange={onChange} />
-        <p className='login-input-error'>{errorMessage}</p>
+        <p>{errorMessage}</p>
       </div>
     </>
   );
