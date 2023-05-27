@@ -53,15 +53,18 @@
 }
 
 .register-submit-btn {
-  padding: 0.5rem 3rem;
+  padding: 0.4rem 3rem;
   background-color: #070707;
+  border: 3px solid #070707;
   color: #f7f4f3;
   border-radius: 6px;
   margin-top: 0.5rem;
 }
 
 .register-submit-btn:hover {
-  background-color: #878787;
+  background-color: #f7f4f3;
+  color: #070707;
+  transition: 0.3s ease-out;
 }
 
 @media screen and (min-width: 375px) {

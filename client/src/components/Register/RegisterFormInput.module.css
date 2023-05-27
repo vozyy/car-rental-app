@@ -5,15 +5,15 @@
   width: 12rem;
 }
 
-.register-form-label {
+.register-input-container label {
   display: none;
 }
 
-.register-form-input {
+.register-input-container input {
   padding: 0.5rem;
   border-radius: 6px;
 }
 
-.register-form-input:focus {
+.register-input-container input:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

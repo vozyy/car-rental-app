@@ -1,0 +1,51 @@
+.login-form-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../assets/loginCar.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.login-form {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-input-error {
+  color: #a30000;
+  font-size: 1rem;
+}
+
+.login-submit-btn {
+  padding: 0.4rem 3rem;
+  background-color: #f7f4f3;
+  color: #070707;
+  border: 3px solid #f7f4f3;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.login-submit-btn:hover {
+  transition: 0.3s ease-out;
+  background-color: #070707;
+  color: #f7f4f3;
+}
+
+/* #a30000 red */
+/* #f7f4f3 white */
+/* #070707 black */
+
+@media screen and (min-width: 375px) {
+}
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 1280px) {
+}
