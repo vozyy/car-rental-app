@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoginFormInputs from './LoginFormInputs';
 import loginInputs from './LoginInputs';
 import { loginSchema } from '../../utils/formValidationSchema';
@@ -7,6 +8,8 @@ import { debounce } from 'lodash';
 import styles from './LoginForm.module.css';
 
 function LoginForm() {
+  const navigate = useNavigate();
+
   const [loginValues, setLoginValues] = useState({
     email: '',
     password: '',
@@ -33,13 +36,32 @@ function LoginForm() {
     validateInput();
   }, [showErrorMessage, loginValues]);
 
-  // TODO: implement login logic with my own API
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (errorMessage) {
-      alert('cannot proceed, login not corrent');
+      alert('cannot proceed, please check your credentials');
     } else {
-      console.log(loginValues);
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_BACKEND_URL}/api/login`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginValues),
+          }
+        );
+        const responseBody = await response.json();
+        if (response.status === 200) {
+          navigate('/');
+          localStorage.setItem('token', responseBody.token);
+        } else {
+          setErrorMessage(responseBody.error);
+        }
+      } catch (error) {
+        setErrorMessage(error);
+      }
     }
   };
 
