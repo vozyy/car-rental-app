@@ -4,6 +4,7 @@ import loginInputs from './LoginInputs';
 import { loginSchema } from '../../utils/formValidationSchema';
 import validateFormInput from '../../utils/formValidation';
 import { debounce } from 'lodash';
+import styles from './LoginForm.module.css';
 
 function LoginForm() {
   const [loginValues, setLoginValues] = useState({
@@ -54,11 +55,13 @@ function LoginForm() {
     ));
 
   return (
-    <div className='login-form'>
-      <form onSubmit={handleSubmit}>
+    <div className={styles['login-form-container']}>
+      <form onSubmit={handleSubmit} className={styles['login-form']}>
         {rednerLoginFormInputs()}
-        {errorMessage && <p>{errorMessage}</p>}
-        <button>Log In</button>
+        {errorMessage && (
+          <p className={styles['login-input-error']}>{errorMessage}</p>
+        )}
+        <button className={styles['login-submit-btn']}>Log In</button>
       </form>
     </div>
   );
