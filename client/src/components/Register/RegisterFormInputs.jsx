@@ -8,11 +8,8 @@ function RegisterFormInputs(props) {
   return (
     <>
       <div className={styles['register-input-container']}>
-        <label className={styles['register-form-label']} htmlFor={id}>
-          {label}{' '}
-        </label>
+        <label htmlFor={id}>{label} </label>
         <input
-          className={styles['register-form-input']}
           {...inputProps}
           id={id}
           placeholder={placeholder}
