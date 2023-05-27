@@ -47,11 +47,10 @@ function RegisterForm() {
     validateInput();
   }, [showErrorMessage, registerValues]);
 
-  // TODO: implement login logic with my own API
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (errorMessage) {
-      alert('cannot proceed, credentials are not valid');
+      alert('cannot proceed, please check your credentials');
     } else {
       try {
         const response = await fetch(
@@ -64,11 +63,13 @@ function RegisterForm() {
             body: JSON.stringify(registerValues),
           }
         );
-        const responseBody = await response.json();
-        console.log(responseBody);
-        navigate('/login');
+        if (response.status === 201) {
+          navigate('/login');
+        } else {
+          setErrorMessage(response.error);
+        }
       } catch (error) {
-        console.log(error);
+        setErrorMessage(error);
       }
     }
   };
