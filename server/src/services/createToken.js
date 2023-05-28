@@ -8,6 +8,7 @@ const createToken = (tokenDetails) => {
     id: tokenDetails.id,
     email: tokenDetails.email,
   };
+  // TODO: add expiration back
   return jwt.sign(tokenDetails, process.env.TOKEN_SECRET);
 };
 

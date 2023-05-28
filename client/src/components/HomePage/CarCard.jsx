@@ -11,7 +11,7 @@ function CarCard(props) {
     carPrice,
     onClick,
   } = props;
-
+  // TODO: add <img/> to the card through to database
   return (
     <div className={styles['car-card-container']}>
       <div className={styles['car-manufacturer-info']}>
