@@ -56,6 +56,7 @@ function LoginForm() {
         if (response.status === 200) {
           navigate('/');
           localStorage.setItem('token', responseBody.token);
+          localStorage.setItem('userId', responseBody.userId);
         } else {
           setErrorMessage(responseBody.error);
         }
