@@ -12,13 +12,6 @@ function App() {
   const [rentInfo, setRentInfo] = useState({});
 
   useEffect(() => {
-    // TODO: further develop the token verification - try placing this code to the getAvailableCars()
-    // so if the res.body is error redirect the cx to /login (change the verifyToken return to tokenError object instead of error)
-    // and if responseBody.tokenError is true then navigate OR check the response.status and if it is a 400ish (check w my backend) run navigate(/login)
-    if (!token) {
-      navigate('/login');
-    }
-
     const getAvailableCars = async () => {
       try {
         const response = await fetch(
@@ -30,6 +23,9 @@ function App() {
           }
         );
         const resBody = await response.json();
+        if (response.status === 401 || !token) {
+          navigate('/login');
+        }
         resBody.error ? setErrorMessage(resBody.error) : setCarList(resBody);
       } catch (error) {
         console.log(error);
@@ -49,7 +45,10 @@ function App() {
       userId: localStorage.getItem('userId'),
       carId,
     }));
+    // DATA RANGE WITH PORTAL
   };
+
+  console.log(rentInfo);
 
   const renderCarCard = () =>
     carList.map((car, i) => (
