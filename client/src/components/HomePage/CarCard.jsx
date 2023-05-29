@@ -1,17 +1,18 @@
 import React from 'react';
 import styles from './CarCard.module.css';
+import Calendar from '../../components/Calendar';
 
-function CarCard(props) {
-  const {
-    carManufacturer,
-    carModel,
-    carYear,
-    carTransmittion,
-    carSeats,
-    carPrice,
-    onClick,
-  } = props;
-  // TODO: add <img/> to the card through to database
+function CarCard({
+  carManufacturer,
+  carModel,
+  carYear,
+  carTransmittion,
+  carSeats,
+  carPrice,
+  onClick,
+  selectedCarId,
+  _id,
+}) {
   return (
     <div className={styles['car-card-container']}>
       <div className={styles['car-manufacturer-info']}>
@@ -25,6 +26,7 @@ function CarCard(props) {
         <p>{carPrice}</p>
       </div>
       <button onClick={onClick}>Rent</button>
+      {selectedCarId === _id && <Calendar />}
     </div>
   );
 }
