@@ -12,6 +12,7 @@
 .register-input-container input {
   padding: 0.5rem;
   border-radius: 6px;
+  border: none;
 }
 
 .register-input-container input:focus {
