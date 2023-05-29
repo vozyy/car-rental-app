@@ -1,7 +1,4 @@
 .login-input-container {
-  /* border: 2px solid red; */
-  display: flex;
-  flex-direction: column;
   width: 12rem;
   padding: 0.5rem;
 }
