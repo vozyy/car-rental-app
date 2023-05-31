@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import registerInputs from './registerInputs';
+import registerInputs from '../../components/Register/registerInputs';
 import RegisterFormInputs from './RegisterFormInputs';
 import validateFormInput from '../../utils/formValidation';
 import { registerSchema } from '../../utils/formValidationSchema';

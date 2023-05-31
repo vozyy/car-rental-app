@@ -1,7 +1,7 @@
 import React from 'react';
-import RegisterForm from '../../components/Register/RegisterForm';
+import RegisterForm from './RegisterForm';
 import styles from './Register.module.css';
-import AsideContent from '../../components/Register/AsideContent';
+import AsideContent from '../../components/AsideContent';
 
 function Register() {
   return (
