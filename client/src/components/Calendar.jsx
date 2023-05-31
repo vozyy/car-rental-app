@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { DateRangeContext } from '../contexts/DateRangeContext';
 
-function Calendar({ onDateSelection }) {
-  const [dateRange, setDateRange] = useState([null, null]);
+function Calendar() {
+  const { dateRange, setDateRange } = useContext(DateRangeContext);
   const [startDate, endDate] = dateRange;
 
   return (
@@ -15,7 +16,6 @@ function Calendar({ onDateSelection }) {
       onChange={(update) => {
         setDateRange(update);
       }}
-      // inline
       withPortal
     />
   );

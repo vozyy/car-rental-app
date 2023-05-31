@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CarCard from '../../components/HomePage/CarCard';
-// import Calendar from '../../components/Calendar';
+import { DateRangeContext } from '../../contexts/DateRangeContext';
 
 function App() {
   const navigate = useNavigate();
+  const { dateRange } = useContext(DateRangeContext);
 
   const [carList, setCarList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -29,7 +30,7 @@ function App() {
         }
         resBody.error ? setErrorMessage(resBody.error) : setCarList(resBody);
       } catch (error) {
-        console.log(error);
+        setErrorMessage(error);
       }
     };
 
@@ -56,7 +57,7 @@ function App() {
       />
     ));
 
-  return <>{carList.length ? renderCarCard() : <p>{errorMessage}</p>}</>;
+  return <>{carList.length ? renderCarCard() : <p>{errorMessage}</p>};</>;
 }
 
 export default App;
