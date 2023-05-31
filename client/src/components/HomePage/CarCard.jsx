@@ -21,11 +21,11 @@ function CarCard({
         <h5>{carYear}</h5>
       </div>
       <div className={styles['car-other-info']}>
-        <p>{carSeats}</p>
-        <p>{carTransmittion}</p>
-        <p>{carPrice}</p>
+        <p>seats {carSeats}</p>
+        <p>transition {carTransmittion}</p>
+        <p>price {carPrice}€ / day</p>
       </div>
-      <button onClick={onClick}>Rent</button>
+      <button onClick={onClick}>Pick dates</button>
       {selectedCarId === _id && <Calendar />}
     </div>
   );
