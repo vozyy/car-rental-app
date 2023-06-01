@@ -60,11 +60,28 @@ function App() {
 
   const handleButtonClick = ({ ...car }) => {
     setSelectedCarId(car._id);
+    setSelectedCarInfo((prevState) => {
+      return {
+        ...prevState,
+        model: car.model_name,
+        manufacturer: car.manufacturer_name,
+        price: car.price,
+      };
+    });
   };
+
+  console.log(selectedCarInfo);
 
   useEffect(() => {
     if (dateRange[1] !== null) {
       setTimeout(() => {
+        setSelectedCarInfo((prevState) => {
+          return {
+            ...prevState,
+            date: dateRange,
+          };
+        });
+        console.log(selectedCarInfo);
         setShowAlert(true);
       }, 100);
     }
@@ -76,7 +93,7 @@ function App() {
       {showAlert && (
         <SwalAlert
           title='Please confirm your selection'
-          text='text comes here...'
+          text={`Car: ${selectedCarInfo.manufacturer} ${selectedCarInfo.model}, Total price: ${selectedCarInfo.price}, Date: ${dateRange} `}
           icon='info'
           buttons={['Back', 'Rent']}
         />
