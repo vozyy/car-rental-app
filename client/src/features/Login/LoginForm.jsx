@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginFormInputs from './LoginFormInputs';
-import loginInputs from '../../components/Login/LoginInputs';
+import loginInputs from '../../components/LoginInputs';
 import { loginSchema } from '../../utils/formValidationSchema';
 import validateFormInput from '../../utils/formValidation';
 import { debounce } from 'lodash';
