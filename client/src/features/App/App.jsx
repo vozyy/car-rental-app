@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CarCard from '../../components/CarCard';
 import { DateRangeContext } from '../../contexts/DateRangeContext';
-import swal from 'sweetalert';
 import SwalAlert from '../../components/SwalAlert';
 
 function App() {
@@ -14,6 +13,8 @@ function App() {
   const [carList, setCarList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [selectedCarId, setSelectedCarId] = useState(null);
+
+  const [selectedCarInfo, setSelectedCarInfo] = useState({});
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -51,14 +52,14 @@ function App() {
         carTransmittion={car.transmission}
         carSeats={car.seats}
         carPrice={car.price}
-        onClick={() => handleButtonClick(car._id)}
+        onClick={() => handleButtonClick({ ...car })}
         selectedCarId={selectedCarId}
         {...car}
       />
     ));
 
-  const handleButtonClick = (carId) => {
-    setSelectedCarId(carId);
+  const handleButtonClick = ({ ...car }) => {
+    setSelectedCarId(car._id);
   };
 
   useEffect(() => {
@@ -73,7 +74,12 @@ function App() {
     <>
       {carList.length ? renderCarCard() : <p>{errorMessage}</p>}
       {showAlert && (
-        <SwalAlert title='QUESTION' text='u sure man?' icon='success' />
+        <SwalAlert
+          title='Please confirm your selection'
+          text='text comes here...'
+          icon='info'
+          buttons={['Back', 'Rent']}
+        />
       )}
       ;
     </>
