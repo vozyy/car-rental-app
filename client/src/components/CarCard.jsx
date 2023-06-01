@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './CarCard.module.css';
-import Calendar from '../../components/Calendar';
+import Calendar from './Calendar';
 
 function CarCard({
   carManufacturer,
