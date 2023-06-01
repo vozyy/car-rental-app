@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CarCard from '../../components/HomePage/CarCard';
+import CarCard from '../../components/CarCard';
 import { DateRangeContext } from '../../contexts/DateRangeContext';
+import swal from 'sweetalert';
+import SwalAlert from '../../components/SwalAlert';
 
 function App() {
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const { dateRange } = useContext(DateRangeContext);
+  const userId = localStorage.getItem('userId');
 
   const [carList, setCarList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
-  const token = localStorage.getItem('token');
-
   const [selectedCarId, setSelectedCarId] = useState(null);
+
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const getAvailableCars = async () => {
@@ -37,10 +41,6 @@ function App() {
     return () => getAvailableCars();
   }, [navigate, token]);
 
-  const handleButtonClick = (carId) => {
-    setSelectedCarId(carId);
-  };
-
   const renderCarCard = () =>
     carList.map((car) => (
       <CarCard
@@ -57,7 +57,27 @@ function App() {
       />
     ));
 
-  return <>{carList.length ? renderCarCard() : <p>{errorMessage}</p>};</>;
+  const handleButtonClick = (carId) => {
+    setSelectedCarId(carId);
+  };
+
+  useEffect(() => {
+    if (dateRange[1] !== null) {
+      setTimeout(() => {
+        setShowAlert(true);
+      }, 100);
+    }
+  }, [dateRange]);
+
+  return (
+    <>
+      {carList.length ? renderCarCard() : <p>{errorMessage}</p>}
+      {showAlert && (
+        <SwalAlert title='QUESTION' text='u sure man?' icon='success' />
+      )}
+      ;
+    </>
+  );
 }
 
 export default App;
