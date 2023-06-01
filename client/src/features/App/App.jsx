@@ -72,6 +72,8 @@ function App() {
 
   console.log(selectedCarInfo);
 
+  // TODO: transform date format from the current one to DD/MM/YYYY
+  //TODO: add click events on alert window buttons
   useEffect(() => {
     if (dateRange[1] !== null) {
       setTimeout(() => {
