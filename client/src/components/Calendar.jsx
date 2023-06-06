@@ -9,13 +9,12 @@ function Calendar() {
 
   return (
     <DatePicker
+      dateFormat='dd/MM/yyyy'
       selectsRange={true}
       placeholderText='Pick dates'
       startDate={startDate}
       endDate={endDate}
-      onChange={(update) => {
-        setDateRange(update);
-      }}
+      onChange={(date) => setDateRange(date)}
       withPortal
     />
   );
