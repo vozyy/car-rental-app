@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import CarCard from '../../components/CarCard';
 import { DateRangeContext } from '../../contexts/DateRangeContext';
 import SwalAlert from '../../components/SwalAlert';
+import { formatDate, getDateDifference } from '../../utils/dateManipulation';
 
 function App() {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
-  const { dateRange } = useContext(DateRangeContext);
+  const { dateRange, setDateRange } = useContext(DateRangeContext);
   const userId = localStorage.getItem('userId');
 
   const [carList, setCarList] = useState([]);
@@ -70,22 +71,32 @@ function App() {
     });
   };
 
-  // TODO: transform date format from the current one to DD/MM/YYYY
   //TODO: add click events on alert window buttons
   useEffect(() => {
     if (dateRange[1] !== null) {
+      const numberOfDays = getDateDifference(dateRange[0], dateRange[1]);
       setTimeout(() => {
         setSelectedCarInfo((prevState) => {
           return {
             ...prevState,
-            date: dateRange,
+            total_price: prevState.price * numberOfDays,
+            dates: dateRange,
           };
         });
-        console.log(selectedCarInfo);
         setShowAlert(true);
       }, 100);
     }
   }, [dateRange]);
+
+  const handleProceed = () => {
+    console.log('clicked RENT');
+  };
+
+  const handleCancel = () => {
+    setSelectedCarInfo({});
+    setDateRange([null, null]);
+    setShowAlert(!showAlert);
+  };
 
   return (
     <>
@@ -93,9 +104,15 @@ function App() {
       {showAlert && (
         <SwalAlert
           title='Please confirm your selection'
-          text={`Car: ${selectedCarInfo.manufacturer} ${selectedCarInfo.model}, Total price: ${selectedCarInfo.price}, Date: ${dateRange} `}
+          text={`Car: ${selectedCarInfo.manufacturer} ${
+            selectedCarInfo.model
+          }, Total price: ${selectedCarInfo.total_price}€, Start: ${formatDate(
+            dateRange[0]
+          )} Return: ${formatDate(dateRange[1])}`}
           icon='info'
           buttons={['Back', 'Rent']}
+          onConfirmation={handleProceed}
+          onCancelation={handleCancel}
         />
       )}
       ;
