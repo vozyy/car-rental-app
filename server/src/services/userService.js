@@ -34,4 +34,13 @@ const createUser = async (userCredentials) => {
   }
 };
 
-export default createUser;
+const getUserById = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    return user;
+  } catch (error) {
+    throw new Error('Failed to retrieve user');
+  }
+};
+
+export default { createUser, getUserById };
