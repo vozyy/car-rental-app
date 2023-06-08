@@ -64,8 +64,8 @@ function App() {
     setRentalInformation((prevState) => {
       return {
         ...prevState,
-        user_id: userId,
-        car_id: car._id,
+        userId,
+        carId: car._id,
         model: car.model_name,
         manufacturer: car.manufacturer_name,
         price: car.price,
