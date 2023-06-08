@@ -15,7 +15,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [selectedCarId, setSelectedCarId] = useState(null);
 
-  const [selectedCarInfo, setSelectedCarInfo] = useState({});
+  const [rentalInformation, setRentalInformation] = useState({});
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -61,9 +61,11 @@ function App() {
 
   const handleButtonClick = ({ ...car }) => {
     setSelectedCarId(car._id);
-    setSelectedCarInfo((prevState) => {
+    setRentalInformation((prevState) => {
       return {
         ...prevState,
+        user_id: userId,
+        car_id: car._id,
         model: car.model_name,
         manufacturer: car.manufacturer_name,
         price: car.price,
@@ -76,7 +78,7 @@ function App() {
     if (dateRange[1] !== null) {
       const numberOfDays = getDateDifference(dateRange[0], dateRange[1]);
       setTimeout(() => {
-        setSelectedCarInfo((prevState) => {
+        setRentalInformation((prevState) => {
           return {
             ...prevState,
             total_price: prevState.price * numberOfDays,
@@ -89,11 +91,12 @@ function App() {
   }, [dateRange]);
 
   const handleProceed = () => {
-    console.log('clicked RENT');
+    console.log(userId);
+    console.log(rentalInformation);
   };
 
   const handleCancel = () => {
-    setSelectedCarInfo({});
+    setRentalInformation({});
     setDateRange([null, null]);
     setShowAlert(!showAlert);
   };
@@ -104,11 +107,13 @@ function App() {
       {showAlert && (
         <SwalAlert
           title='Please confirm your selection'
-          text={`Car: ${selectedCarInfo.manufacturer} ${
-            selectedCarInfo.model
-          }, Total price: ${selectedCarInfo.total_price}€, Start: ${formatDate(
-            dateRange[0]
-          )} Return: ${formatDate(dateRange[1])}`}
+          text={`Car: ${rentalInformation.manufacturer} ${
+            rentalInformation.model
+          }, Total price: ${
+            rentalInformation.total_price
+          }€, Start: ${formatDate(dateRange[0])} Return: ${formatDate(
+            dateRange[1]
+          )}`}
           icon='info'
           buttons={['Back', 'Rent']}
           onConfirmation={handleProceed}
