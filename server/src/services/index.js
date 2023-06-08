@@ -1,9 +1,10 @@
 import createUser from './userService';
-import { getAllVehicles } from './vehicleService';
-import { addRenterToVehicle } from './vehicleService';
+import { getAllVehicles, getVehicleById } from './vehicleService';
+import postRentalData from './rentalService';
 
 export default {
   createUser,
   getAllVehicles,
-  addRenterToVehicle,
+  getVehicleById,
+  postRentalData,
 };
