@@ -33,11 +33,6 @@ const vehicleSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  rented_by: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    default: null,
-  },
 });
 
 const Vehicle = mongoose.model('vehicle', vehicleSchema);
