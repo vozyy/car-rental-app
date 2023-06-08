@@ -9,17 +9,13 @@ const getAllVehicles = async () => {
   }
 };
 
-const addRenterToVehicle = async (renterId, vehicleId) => {
+const getVehicleById = async (vehicleId) => {
   try {
-    const updateVehicle = await Vehicle.findOneAndUpdate(
-      { _id: vehicleId },
-      { $set: { rented_by: renterId } },
-      { new: true }
-    );
-    return updateVehicle;
+    const vehicle = await Vehicle.findById(vehicleId);
+    return vehicle;
   } catch (error) {
-    throw new Error(`Failed to update vehicle in the database`);
+    throw new Error('Failed to retrieve vehicle');
   }
 };
 
-export { getAllVehicles, addRenterToVehicle };
+export { getAllVehicles, getVehicleById };
