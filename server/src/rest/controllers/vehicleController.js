@@ -14,24 +14,4 @@ const getAll = async (req, res) => {
   }
 };
 
-const updateVehicleRenter = async (req, res) => {
-  const { renterId, vehicleId } = req.body;
-
-  if (!renterId || !vehicleId) {
-    return res
-      .status(422)
-      .json({ error: 'renterId and vehicleId are required' });
-  }
-
-  try {
-    const result = await vehicleService.addRenterToVehicle(renterId, vehicleId);
-    res.json({ message: 'Vehicle updated successfully', result });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export default {
-  getAll,
-  updateVehicleRenter,
-};
+export default { getAll };
