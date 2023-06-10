@@ -11,24 +11,12 @@ const rentalInformationSchema = new mongoose.Schema({
     ref: 'Vehicle',
     required: true,
   },
-  manufacturer_name: {
-    type: String,
-    required: true,
-  },
-  model_name: {
-    type: String,
-    required: true,
-  },
   start_date: {
     type: Date,
     required: true,
   },
   end_date: {
     type: Date,
-    required: true,
-  },
-  total_price: {
-    type: Number,
     required: true,
   },
 });
