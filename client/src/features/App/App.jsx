@@ -6,6 +6,8 @@ import SwalAlert from '../../components/SwalAlert';
 import { formatDate, getDateDifference } from '../../utils/dateManipulation';
 
 function App() {
+  //TODO: make sure each state is used properly, if some are redundant then merge them into other ones to decrese re-render#
+  // TODO: when fetching data the date in the DB is not the same the user picks, look into it
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const { dateRange, setDateRange } = useContext(DateRangeContext);
@@ -18,6 +20,7 @@ function App() {
   const [rentalInformation, setRentalInformation] = useState({});
 
   const [showAlert, setShowAlert] = useState(false);
+  const [fetchData, setFetchData] = useState({});
 
   useEffect(() => {
     const getAvailableCars = async () => {
@@ -64,16 +67,18 @@ function App() {
     setRentalInformation((prevState) => {
       return {
         ...prevState,
-        userId,
-        carId: car._id,
+
         model: car.model_name,
         manufacturer: car.manufacturer_name,
         price: car.price,
       };
     });
+    setFetchData({
+      userId,
+      carId: car._id,
+    });
   };
 
-  //TODO: add click events on alert window buttons
   useEffect(() => {
     if (dateRange[1] !== null) {
       const numberOfDays = getDateDifference(dateRange[0], dateRange[1]);
@@ -81,24 +86,46 @@ function App() {
         setRentalInformation((prevState) => {
           return {
             ...prevState,
-            total_price: prevState.price * numberOfDays,
             dates: dateRange,
+            totaPrice: prevState.price * numberOfDays,
           };
         });
         setShowAlert(true);
       }, 100);
     }
+    setFetchData((prevState) => {
+      return {
+        ...prevState,
+        startDate: dateRange[0],
+        endDate: dateRange[1],
+      };
+    });
   }, [dateRange]);
 
-  const handleProceed = () => {
-    console.log(userId);
-    console.log(rentalInformation);
+  const handleProceed = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/api/create-rental`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(fetchData),
+      }
+    );
+    const resBody = await response.json();
+    setRentalInformation({});
+    setDateRange([null, null]);
+    setShowAlert(false);
+
+    console.log(resBody);
   };
 
   const handleCancel = () => {
     setRentalInformation({});
     setDateRange([null, null]);
-    setShowAlert(!showAlert);
+    setShowAlert(false);
   };
 
   return (
@@ -109,18 +136,15 @@ function App() {
           title='Please confirm your selection'
           text={`Car: ${rentalInformation.manufacturer} ${
             rentalInformation.model
-          }, Total price: ${
-            rentalInformation.total_price
-          }€, Start: ${formatDate(dateRange[0])} Return: ${formatDate(
-            dateRange[1]
-          )}`}
+          }, Total price: ${rentalInformation.totaPrice}€, Start: ${formatDate(
+            dateRange[0]
+          )} Return: ${formatDate(dateRange[1])}`}
           icon='info'
           buttons={['Back', 'Rent']}
           onConfirmation={handleProceed}
           onCancelation={handleCancel}
         />
       )}
-      ;
     </>
   );
 }
