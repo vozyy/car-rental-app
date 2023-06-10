@@ -31,12 +31,8 @@ const postRentalInformation = async (req, res) => {
     const rentalData = {
       user_id: user._id,
       car_id: vehicle._id,
-      model_name: vehicle.model_name,
-      manufacturer_name: vehicle.manufacturer_name,
-      model_name: vehicle.model_name,
       start_date: startDate,
       end_date: endDate,
-      total_price: totalPrice,
     };
 
     const result = await rentalService.postRentalData(rentalData);
