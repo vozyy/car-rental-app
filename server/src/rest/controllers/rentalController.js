@@ -1,12 +1,23 @@
 import vehicleService from '../../services';
 import rentalService from '../../services/rentalService';
 import userService from '../../services/userService';
+import moment from 'moment';
 
 const postRentalInformation = async (req, res) => {
   const { userId, carId, startDate, endDate } = req.body;
+  const dateFormat = 'YYYY-MM-DD';
 
   if (!userId || !carId || !startDate || !endDate) {
     return res.status(400).json({ error: 'Rental information required' });
+  }
+
+  if (
+    !moment(startDate, dateFormat, true).isValid() ||
+    !moment(endDate, dateFormat, true).isValid()
+  ) {
+    return res.status(400).json({
+      error: 'Invalid date format. The corrent format is: YYYY-MM-DD',
+    });
   }
 
   try {
