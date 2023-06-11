@@ -5,7 +5,7 @@ import moment from 'moment';
 
 const postRentalInformation = async (req, res) => {
   const { userId, carId, startDate, endDate } = req.body;
-  const dateFormat = 'YYYY-MM-DD';
+  const dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
 
   if (!userId || !carId || !startDate || !endDate) {
     return res.status(400).json({ error: 'Rental information required' });
@@ -16,19 +16,17 @@ const postRentalInformation = async (req, res) => {
     !moment(endDate, dateFormat, true).isValid()
   ) {
     return res.status(400).json({
-      error: 'Invalid date format. The corrent format is: YYYY-MM-DD',
+      error: 'Invalid date format',
     });
   }
 
   try {
     const vehicle = await vehicleService.getVehicleById(carId);
-    console.log(vehicle);
     if (!vehicle) {
       return res.stauts(404).json({ error: 'Vehicle not found' });
     }
 
     const user = await userService.getUserById(userId);
-    console.log(user);
     if (!user) {
       return res.stauts(404).json({ error: 'User not found' });
     }
