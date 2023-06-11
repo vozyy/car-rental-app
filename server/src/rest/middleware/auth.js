@@ -18,7 +18,7 @@ const checkToken = async (req, res, next) => {
       res.status(401).json({ error: 'Token expired, please sign in again' });
       return res.end();
     }
-    res.status(401).json({ error: 'Invalid token. please sign in' });
+    res.status(401).json({ error: 'Invalid token, please sign in' });
     return next(error.message);
   }
 };
