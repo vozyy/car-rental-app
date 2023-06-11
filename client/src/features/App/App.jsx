@@ -73,10 +73,6 @@ function App() {
         price: car.price,
       };
     });
-    setFetchData({
-      userId,
-      carId: car._id,
-    });
   };
 
   useEffect(() => {
@@ -96,11 +92,13 @@ function App() {
     setFetchData((prevState) => {
       return {
         ...prevState,
+        userId,
+        carId: selectedCarId,
         startDate: dateRange[0],
         endDate: dateRange[1],
       };
     });
-  }, [dateRange]);
+  }, [dateRange, selectedCarId, userId]);
 
   const handleProceed = async () => {
     const response = await fetch(
@@ -115,7 +113,6 @@ function App() {
       }
     );
     const resBody = await response.json();
-    setRentalInformation({});
     setDateRange([null, null]);
     setShowAlert(false);
 
@@ -123,7 +120,6 @@ function App() {
   };
 
   const handleCancel = () => {
-    setRentalInformation({});
     setDateRange([null, null]);
     setShowAlert(false);
   };
