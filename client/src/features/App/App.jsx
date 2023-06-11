@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { DateRangeContext } from '../../contexts/DateRangeContext';
 import { formatDate, getDateDifference } from '../../utils/dateManipulation';
+import { getVehicles } from '../../api/vehicle';
+import { createRental } from '../../api/rental';
 
 import CarCard from '../../components/CarCard';
 import SwalAlert from '../../components/SwalAlert';
@@ -22,27 +24,12 @@ function App() {
   const [fetchData, setFetchData] = useState({});
 
   useEffect(() => {
-    const getAvailableCars = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_BACKEND_URL}/api/vehicles`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const resBody = await response.json();
-        if (response.status === 401 || !token) {
-          navigate('/login');
-        }
-        resBody.error ? setErrorMessage(resBody.error) : setCarList(resBody);
-      } catch (error) {
-        setErrorMessage(error);
-      }
+    const fetchAvailableCars = async () => {
+      await getVehicles(token, navigate, setCarList, setErrorMessage);
     };
 
-    return () => getAvailableCars();
+    fetchAvailableCars();
+    //TODO: add cleanup function
   }, [navigate, token]);
 
   useEffect(() => {
@@ -59,6 +46,7 @@ function App() {
         setShowAlert(true);
       }, 100);
     }
+
     setFetchData((prevState) => {
       return {
         ...prevState,
@@ -75,7 +63,6 @@ function App() {
     setRentalInformation((prevState) => {
       return {
         ...prevState,
-
         model: car.model_name,
         manufacturer: car.manufacturer_name,
         price: car.price,
@@ -84,22 +71,15 @@ function App() {
   };
 
   const handleProceed = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/api/create-rental`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(fetchData),
-      }
-    );
-    const resBody = await response.json();
-    setDateRange([null, null]);
-    setShowAlert(false);
-
-    console.log(resBody);
+    try {
+      const resBody = await createRental(token, fetchData);
+      setDateRange([null, null]);
+      setShowAlert(false);
+      console.log(resBody);
+    } catch (error) {
+      console.error(error);
+      // Handle any errors that occur during the API call
+    }
   };
 
   const handleCancel = () => {
