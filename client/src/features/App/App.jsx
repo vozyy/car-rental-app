@@ -1,24 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CarCard from '../../components/CarCard';
+
 import { DateRangeContext } from '../../contexts/DateRangeContext';
-import SwalAlert from '../../components/SwalAlert';
 import { formatDate, getDateDifference } from '../../utils/dateManipulation';
 
+import CarCard from '../../components/CarCard';
+import SwalAlert from '../../components/SwalAlert';
+
 function App() {
-  //TODO: make sure each state is used properly, if some are redundant then merge them into other ones to decrese re-render#
-  // TODO: when fetching data the date in the DB is not the same the user picks, look into it
-  const token = localStorage.getItem('token');
   const navigate = useNavigate();
-  const { dateRange, setDateRange } = useContext(DateRangeContext);
+  const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+
+  const { dateRange, setDateRange } = useContext(DateRangeContext);
 
   const [carList, setCarList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [selectedCarId, setSelectedCarId] = useState(null);
-
   const [rentalInformation, setRentalInformation] = useState({});
-
   const [showAlert, setShowAlert] = useState(false);
   const [fetchData, setFetchData] = useState({});
 
@@ -46,35 +45,6 @@ function App() {
     return () => getAvailableCars();
   }, [navigate, token]);
 
-  const renderCarCard = () =>
-    carList.map((car) => (
-      <CarCard
-        key={car._id}
-        carManufacturer={car.manufacturer_name}
-        carModel={car.model_name}
-        carYear={car.year}
-        carTransmittion={car.transmission}
-        carSeats={car.seats}
-        carPrice={car.price}
-        onClick={() => handleButtonClick({ ...car })}
-        selectedCarId={selectedCarId}
-        {...car}
-      />
-    ));
-
-  const handleButtonClick = ({ ...car }) => {
-    setSelectedCarId(car._id);
-    setRentalInformation((prevState) => {
-      return {
-        ...prevState,
-
-        model: car.model_name,
-        manufacturer: car.manufacturer_name,
-        price: car.price,
-      };
-    });
-  };
-
   useEffect(() => {
     if (dateRange[1] !== null) {
       const numberOfDays = getDateDifference(dateRange[0], dateRange[1]);
@@ -100,6 +70,19 @@ function App() {
     });
   }, [dateRange, selectedCarId, userId]);
 
+  const handleButtonClick = ({ ...car }) => {
+    setSelectedCarId(car._id);
+    setRentalInformation((prevState) => {
+      return {
+        ...prevState,
+
+        model: car.model_name,
+        manufacturer: car.manufacturer_name,
+        price: car.price,
+      };
+    });
+  };
+
   const handleProceed = async () => {
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/api/create-rental`,
@@ -124,23 +107,45 @@ function App() {
     setShowAlert(false);
   };
 
+  const renderCarCard = () =>
+    carList.map((car) => (
+      <CarCard
+        key={car._id}
+        carManufacturer={car.manufacturer_name}
+        carModel={car.model_name}
+        carYear={car.year}
+        carTransmittion={car.transmission}
+        carSeats={car.seats}
+        carPrice={car.price}
+        onClick={() => handleButtonClick({ ...car })}
+        selectedCarId={selectedCarId}
+        {...car}
+      />
+    ));
+
+  const renderSwaltAlert = () => {
+    const alertText = `Car: ${rentalInformation.manufacturer} ${
+      rentalInformation.model
+    }, Total price: ${rentalInformation.totaPrice}€, Start: ${formatDate(
+      dateRange[0]
+    )} Return: ${formatDate(dateRange[1])}`;
+
+    return (
+      <SwalAlert
+        title='Please confirm your selection'
+        text={alertText}
+        icon='info'
+        buttons={['Back', 'Rent']}
+        onConfirmation={handleProceed}
+        onCancelation={handleCancel}
+      />
+    );
+  };
+
   return (
     <>
       {carList.length ? renderCarCard() : <p>{errorMessage}</p>}
-      {showAlert && (
-        <SwalAlert
-          title='Please confirm your selection'
-          text={`Car: ${rentalInformation.manufacturer} ${
-            rentalInformation.model
-          }, Total price: ${rentalInformation.totaPrice}€, Start: ${formatDate(
-            dateRange[0]
-          )} Return: ${formatDate(dateRange[1])}`}
-          icon='info'
-          buttons={['Back', 'Rent']}
-          onConfirmation={handleProceed}
-          onCancelation={handleCancel}
-        />
-      )}
+      {showAlert && renderSwaltAlert()}
     </>
   );
 }
