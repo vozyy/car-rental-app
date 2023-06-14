@@ -13,7 +13,7 @@ function Calendar() {
       className={styles['try-style']}
       dateFormat='dd/MM/yyyy'
       selectsRange={true}
-      placeholderText='Clic here'
+      placeholderText='Click here'
       startDate={startDate}
       endDate={endDate}
       onChange={(date) => setDateRange(date)}
