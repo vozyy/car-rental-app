@@ -3,6 +3,64 @@
 }
 
 .car-card-container {
-  border: 1px solid red;
-  width: 30rem;
+  width: 80%;
+  max-width: 30rem;
+  margin: 0 auto;
+  margin-top: 4rem;
+  padding: 1rem;
+  background-color: #f7f4f3;
+  border-radius: 20px;
+  transition: box-shadow 0.3s ease-in;
+}
+
+.car-card-container:hover {
+  box-shadow: 19px 19px 34px -2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 19px 19px 34px -2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 19px 19px 34px -2px rgba(0, 0, 0, 0.3);
+}
+
+.car-manufacturer-info {
+  display: flex;
+}
+
+.car-manufacturer-info h3 {
+  margin-right: 0.3rem;
+}
+
+.car-other-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date-picker-button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2rem 0 1rem 0;
+}
+
+.dates-button {
+  padding: 0.4rem 3rem;
+  background-color: #070707;
+  color: #f7f4f3;
+  border: 3px solid #070707;
+  border-radius: 6px;
+  transition: background-color 0.3s ease-in;
+}
+
+.dates-button:hover {
+  background-color: #f7f4f3;
+  color: #070707;
+}
+
+@media screen and (min-width: 375px) {
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    background-color: lightgreen;
+  }
+}
+
+@media screen and (min-width: 1280px) {
 }
