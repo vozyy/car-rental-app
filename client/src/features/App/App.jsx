@@ -9,6 +9,8 @@ import { createRental } from '../../api/rental';
 import CarCard from '../../components/CarCard';
 import SwalAlert from '../../components/SwalAlert';
 
+import styles from './App.module.css';
+
 function App() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -123,10 +125,13 @@ function App() {
   };
 
   return (
-    <>
+    <div className={styles['home-page-container']}>
+      <h1 className={styles['home-page-header']}>
+        <strong>Choose </strong>a car
+      </h1>
       {carList.length ? renderCarCard() : <p>{errorMessage}</p>}
       {showAlert && renderSwaltAlert()}
-    </>
+    </div>
   );
 }
 
