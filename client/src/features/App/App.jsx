@@ -25,6 +25,9 @@ function App() {
   const [showAlert, setShowAlert] = useState(false);
   const [fetchData, setFetchData] = useState({});
 
+  const currentPage = 1;
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+
   useEffect(() => {
     const fetchAvailableCars = async () => {
       await getVehicles(token, navigate, setCarList, setErrorMessage);
@@ -77,7 +80,6 @@ function App() {
       const resBody = await createRental(token, fetchData);
       setDateRange([null, null]);
       setShowAlert(false);
-      console.log(resBody);
     } catch (error) {
       console.error(error);
       // Handle any errors that occur during the API call
@@ -89,8 +91,29 @@ function App() {
     setShowAlert(false);
   };
 
-  const renderCarCard = () =>
-    carList.map((car) => (
+  const handleSeeMore = () => {
+    setItemsPerPage(itemsPerPage + 3);
+  };
+
+  const renderSeeMoreButton = () => {
+    if (currentPage * itemsPerPage >= carList.length) {
+      return null; // Hide the button if all cars have been rendered
+    }
+    return (
+      <div className={styles['see-more-container']}>
+        <button onClick={handleSeeMore} className={styles['see-more-button']}>
+          See More
+        </button>
+      </div>
+    );
+  };
+
+  const renderCarCard = () => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = carList.slice(indexOfFirstItem, indexOfLastItem);
+
+    return currentItems.map((car) => (
       <CarCard
         key={car._id}
         carManufacturer={car.manufacturer_name}
@@ -104,6 +127,7 @@ function App() {
         {...car}
       />
     ));
+  };
 
   const renderSwaltAlert = () => {
     const alertText = `Car: ${rentalInformation.manufacturer} ${
@@ -129,7 +153,8 @@ function App() {
       <h1 className={styles['home-page-header']}>
         <strong>Choose </strong>a car
       </h1>
-      {carList.length ? renderCarCard() : <p>{errorMessage}</p>}
+      {renderCarCard()}
+      {renderSeeMoreButton()}
       {showAlert && renderSwaltAlert()}
     </div>
   );
