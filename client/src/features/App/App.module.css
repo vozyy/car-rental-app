@@ -7,3 +7,12 @@
 .home-page-header {
   font-weight: 200;
 }
+
+.see-more-container {
+  text-align: center;
+}
+
+.see-more-button {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
