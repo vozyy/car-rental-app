@@ -10,7 +10,7 @@
 }
 
 .overlay {
-  background-color: rgba(60, 60, 60, 0.7);
+  background-color: rgba(60, 60, 60, 0.9);
 }
 
 .register-form {
@@ -34,7 +34,7 @@
   transform: translateX(-50%);
   padding: 0.7rem 4.5rem;
   border-radius: 10px;
-  margin-top: 4rem;
+  margin-top: 3rem;
   background-color: #a30000;
   color: #f7f4f3;
   font-weight: 900;
@@ -50,6 +50,7 @@
 .register-error-message {
   color: #a30000;
   font-size: 0.8rem;
+  text-align: center;
 }
 
 .register-submit-btn {

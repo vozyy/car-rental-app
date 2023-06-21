@@ -5,6 +5,7 @@
 body {
   height: auto;
   margin: 0;
+  background-color: #f7f4f3;
   font-family: -apple-system, 'Prompt', 'Raleway', BlinkMacSystemFont,
     'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
     'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -33,6 +34,10 @@ input:focus {
 button {
   cursor: pointer;
   border: none;
+}
+
+img {
+  size: 100%;
 }
 
 code {

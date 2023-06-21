@@ -1,19 +1,7 @@
-.login-form-container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(../../assets/loginCar.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 .login-form {
-  padding: 2rem;
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -21,21 +9,22 @@
   color: #a30000;
   width: 20rem;
   text-align: center;
-  margin-top: 0;
+  margin-top: 1rem;
 }
 
 .login-submit-btn {
   padding: 0.4rem 3rem;
-  background-color: #f7f4f3;
-  color: #070707;
-  border: 3px solid #f7f4f3;
+  margin-top: 1rem;
+  background-color: #070707;
+  color: #f7f4f3;
+  border: 3px solid #070707;
   border-radius: 6px;
 }
 
 .login-submit-btn:hover {
   transition: 0.3s ease-out;
-  background-color: #070707;
-  color: #f7f4f3;
+  background-color: #f7f4f3;
+  color: #070707;
 }
 
 /* #a30000 red */

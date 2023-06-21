@@ -1,7 +1,8 @@
 .aside-content {
   background-color: #f7f4f3;
+  border: 3px solid #070707;
   border-radius: 20px;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -25,3 +26,7 @@
 
 @media screen and (min-width: 1280px) {
 }
+
+/* #a30000 red */
+/* #f7f4f3 white */
+/* #070707 black */

@@ -4,8 +4,33 @@
   margin: 0 auto;
 }
 
+.home-page-container header {
+  background-color: #070707;
+  color: #f7f4f3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0 4rem 0;
+  padding: 0.5rem;
+}
+
 .home-page-header {
   font-weight: 200;
+  margin: 0;
+}
+
+.profile-btn {
+  padding: 0.5rem;
+  background-color: #070707;
+  color: #f7f4f3;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.profile-btn:hover {
+  border: 3px solid #f7f4f3;
+  border-radius: 6px;
+  transition: 0.1s ease-out;
 }
 
 .see-more-container {
@@ -13,6 +38,16 @@
 }
 
 .see-more-button {
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
+  padding: 0.4rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #070707;
+  color: #f7f4f3;
+  border: 3px solid #070707;
+  border-radius: 6px;
+}
+
+.see-more-button:hover {
+  transition: 0.3s ease-out;
+  background-color: #f7f4f3;
+  color: #070707;
 }
