@@ -161,10 +161,15 @@ function App() {
         <h1 className={styles['home-page-header']}>
           <strong>Choose </strong>a car
         </h1>
-        <button className={styles['profile-btn']}>Profile</button>
+        <button
+          className={styles['profile-btn']}
+          onClick={() => navigate('/profile')}
+        >
+          Profile
+        </button>
       </header>
       <h3 className={styles['welcome-message']}>
-        Welcom back, check out our latest cars:
+        Welcom back, check out our latest offer:
       </h3>
       {errorMessage && errorMessage}
       {renderCarCard()}
