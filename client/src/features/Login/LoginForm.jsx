@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginFormInputs from './LoginFormInputs';
 import loginInputs from '../../components/LoginInputs';
@@ -54,9 +54,12 @@ function LoginForm() {
         );
         const responseBody = await response.json();
         if (response.status === 200) {
+          const { token, userId, userEmail } = responseBody;
+
           navigate('/');
-          localStorage.setItem('token', responseBody.token);
-          localStorage.setItem('userId', responseBody.userId);
+          localStorage.setItem('token', token);
+          localStorage.setItem('userId', userId);
+          localStorage.setItem('email', userEmail);
         } else {
           setErrorMessage(responseBody.error);
         }
