@@ -150,9 +150,12 @@ function App() {
 
   return (
     <div className={styles['home-page-container']}>
-      <h1 className={styles['home-page-header']}>
-        <strong>Choose </strong>a car
-      </h1>
+      <header>
+        <h1 className={styles['home-page-header']}>
+          <strong>Choose </strong>a car
+        </h1>
+        <button className={styles['profile-btn']}>Profile</button>
+      </header>
       {renderCarCard()}
       {renderSeeMoreButton()}
       {showAlert && renderSwaltAlert()}
