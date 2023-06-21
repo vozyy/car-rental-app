@@ -16,8 +16,9 @@ const login = async (req, res) => {
   try {
     const user = await validateLogin(email, password);
     const userId = user.id;
+    const userEmail = user.email;
     const token = createToken(user);
-    res.json({ message: 'Login successful', token, userId });
+    res.json({ message: 'Login successful', token, userId, userEmail });
   } catch (error) {
     return res.status(401).json({ error: 'Invalid email or password' });
   }
