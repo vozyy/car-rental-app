@@ -8,7 +8,9 @@ const postRentalInformation = async (req, res) => {
   const dateFormat = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
 
   if (!userId || !carId || !startDate || !endDate) {
-    return res.status(400).json({ error: 'Rental information required' });
+    return res
+      .status(400)
+      .json({ error: 'Rental information not complete or missing' });
   }
 
   if (
