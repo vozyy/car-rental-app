@@ -77,12 +77,14 @@ function App() {
 
   const handleProceed = async () => {
     try {
+      // TODO: doublecheck res.body and handle possible errors
       const resBody = await createRental(token, fetchData);
+      console.log(resBody);
       setDateRange([null, null]);
       setShowAlert(false);
     } catch (error) {
       console.error(error);
-      // Handle any errors that occur during the API call
+      // TODO: Handle any errors that occur during the API call
     }
   };
 
