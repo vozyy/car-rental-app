@@ -29,11 +29,11 @@ function App() {
   const [itemsPerPage, setItemsPerPage] = useState(3);
 
   useEffect(() => {
-    const fetchAvailableCars = async () => {
+    const fetchAllVehicles = async () => {
       await getVehicles(token, navigate, setCarList, setErrorMessage);
     };
 
-    fetchAvailableCars();
+    fetchAllVehicles();
     //TODO: add cleanup function
   }, [navigate, token]);
 
@@ -79,9 +79,12 @@ function App() {
     try {
       // TODO: doublecheck res.body and handle possible errors
       const resBody = await createRental(token, fetchData);
-      console.log(resBody);
+      console.log(resBody.status);
       setDateRange([null, null]);
       setShowAlert(false);
+      if (!resBody.error) {
+        navigate('/profile');
+      }
     } catch (error) {
       console.error(error);
       // TODO: Handle any errors that occur during the API call
@@ -99,7 +102,7 @@ function App() {
 
   const renderSeeMoreButton = () => {
     if (currentPage * itemsPerPage >= carList.length) {
-      return null; // Hide the button if all cars have been rendered
+      return null;
     }
     return (
       <div className={styles['see-more-container']}>
@@ -118,6 +121,7 @@ function App() {
     return currentItems.map((car) => (
       <CarCard
         key={car._id}
+        // carImage={carImage}
         carManufacturer={car.manufacturer_name}
         carModel={car.model_name}
         carYear={car.year}
@@ -131,7 +135,7 @@ function App() {
     ));
   };
 
-  const renderSwaltAlert = () => {
+  const renderConfrimSwaltAlert = () => {
     const alertText = `Car: ${rentalInformation.manufacturer} ${
       rentalInformation.model
     }, Total price: ${rentalInformation.totaPrice}€, Start: ${formatDate(
@@ -158,9 +162,12 @@ function App() {
         </h1>
         <button className={styles['profile-btn']}>Profile</button>
       </header>
+      <h3 className={styles['welcome-message']}>
+        Welcom back, check out our latest cars:
+      </h3>
       {renderCarCard()}
       {renderSeeMoreButton()}
-      {showAlert && renderSwaltAlert()}
+      {showAlert && renderConfrimSwaltAlert()}
     </div>
   );
 }
