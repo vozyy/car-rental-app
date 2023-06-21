@@ -1,3 +1,5 @@
+import RentalInformation from '../../db/models/rentalInformation';
+import Vehicle from '../../db/models/vehicle';
 import vehicleService from '../../services';
 import rentalService from '../../services/rentalService';
 import userService from '../../services/userService';
@@ -53,4 +55,20 @@ const postRentalInformation = async (req, res) => {
   }
 };
 
-export default { postRentalInformation };
+const getRentHistory = async (req, res) => {
+  const userId = req.query.id;
+  if (!userId) {
+    res
+      .status(400)
+      .json({ error: 'Invalid request, messing user information' });
+  }
+
+  try {
+    const rentalHistory = await rentalService.retrieveUsersRentals(userId);
+    res.status(rentalHistory.error ? 400 : 200).json(rentalHistory);
+  } catch (error) {
+    res.status(400).json({ error: 'Could not retrieve rental history.' });
+  }
+};
+
+export default { postRentalInformation, getRentHistory };
