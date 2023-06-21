@@ -77,17 +77,18 @@ function App() {
 
   const handleProceed = async () => {
     try {
-      // TODO: doublecheck res.body and handle possible errors
       const resBody = await createRental(token, fetchData);
       console.log(resBody.status);
       setDateRange([null, null]);
       setShowAlert(false);
       if (!resBody.error) {
         navigate('/profile');
+      } else {
+        setErrorMessage(resBody.error);
       }
     } catch (error) {
       console.error(error);
-      // TODO: Handle any errors that occur during the API call
+      setErrorMessage(error);
     }
   };
 
@@ -165,6 +166,7 @@ function App() {
       <h3 className={styles['welcome-message']}>
         Welcom back, check out our latest cars:
       </h3>
+      {errorMessage && errorMessage}
       {renderCarCard()}
       {renderSeeMoreButton()}
       {showAlert && renderConfrimSwaltAlert()}
