@@ -1,8 +1,6 @@
-import RentalInformation from '../../db/models/rentalInformation';
-import Vehicle from '../../db/models/vehicle';
-import vehicleService from '../../services';
-import rentalService from '../../services/rentalService';
-import userService from '../../services/userService';
+import { vehicleService } from '../../services';
+import { rentalService } from '../../services';
+import { userService } from '../../services';
 import moment from 'moment';
 
 const postRentalInformation = async (req, res) => {

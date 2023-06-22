@@ -35,3 +35,5 @@ export const validateLogin = async (userEmail, userPassword) => {
 
   return user;
 };
+
+export default { registrationSchema, validateRegistration, validateLogin };

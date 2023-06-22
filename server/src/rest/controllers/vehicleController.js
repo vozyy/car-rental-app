@@ -1,4 +1,4 @@
-import vehicleService from '../../services';
+import { vehicleService } from '../../services';
 
 const getAll = async (req, res) => {
   try {

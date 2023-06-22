@@ -1,8 +1,9 @@
-import userService from '../../services';
+import { userService } from '../../services';
 import { validateLogin } from '../../services/validationService';
 import createToken from '../../services/createToken';
 
 const register = async (req, res) => {
+  console.log(req.body);
   try {
     const result = await userService.createUser(req.body);
     res.status(result.error ? 400 : 201).json(result);

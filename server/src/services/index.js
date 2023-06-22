@@ -1,12 +1,6 @@
-import createUser from './userService';
-import { getAllVehicles, getVehicleById } from './vehicleService';
-import postRentalData from './rentalService';
-import retrieveUsersRentals from './rentalService';
+import userService from './userService';
+import vehicleService from './vehicleService';
+import rentalService from './rentalService';
+import validationService from './validationService';
 
-export default {
-  createUser,
-  getAllVehicles,
-  getVehicleById,
-  postRentalData,
-  retrieveUsersRentals,
-};
+export { userService, vehicleService, rentalService, validationService };

@@ -18,4 +18,4 @@ const getVehicleById = async (vehicleId) => {
   }
 };
 
-export { getAllVehicles, getVehicleById };
+export default { getAllVehicles, getVehicleById };
