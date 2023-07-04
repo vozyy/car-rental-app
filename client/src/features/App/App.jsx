@@ -169,7 +169,7 @@ function App() {
         </button>
       </header>
       <h3 className={styles['welcome-message']}>
-        Welcom back, check out our latest offer:
+        Welcome back, check out our latest offer:
       </h3>
       {errorMessage && errorMessage}
       {renderCarCard()}
